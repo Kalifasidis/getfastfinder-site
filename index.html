@@ -25,7 +25,7 @@
 
     .card {
       width: 100%;
-      max-width: 720px;
+      max-width: 760px;
       background: rgba(12, 20, 36, 0.58);
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 24px;
@@ -57,7 +57,7 @@
 
     p {
       margin: 0 auto;
-      max-width: 560px;
+      max-width: 580px;
       font-size: 18px;
       line-height: 1.65;
       color: rgba(255, 255, 255, 0.88);
@@ -69,21 +69,63 @@
       color: rgba(255, 255, 255, 0.72);
     }
 
-    .button {
-      display: inline-block;
+    .contact-box,
+    .download-box {
       margin-top: 28px;
-      padding: 14px 22px;
-      border-radius: 14px;
-      background: #ffffff;
-      color: #0f2748;
-      text-decoration: none;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: 18px;
       font-weight: 700;
+      color: #ffffff;
+    }
+
+    .contact-email {
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      word-break: break-word;
+    }
+
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .app-icon {
+      width: 92px;
+      height: 92px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .button:hover {
-      transform: translateY(-1px);
+    .app-icon:hover {
+      transform: translateY(-2px) scale(1.02);
       opacity: 0.96;
+    }
+
+    .ios-note {
+      margin-top: 12px;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .android-note {
+      margin-top: 14px;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.72);
     }
 
     @media (max-width: 640px) {
@@ -98,21 +140,53 @@
       p {
         font-size: 16px;
       }
+
+      .app-icon {
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <main class="card">
     <div class="badge">FastFinder Website • Under Construction</div>
+
     <h1>FastFinder is coming soon</h1>
+
     <p>
       We are currently preparing the official FastFinder website.
-      The app is live, and the full website experience will be available soon.
+      The app is already live on iOS, and the full website experience will be available soon.
     </p>
+
     <p class="subtext">
       Thank you for your patience while we complete the final touches.
     </p>
-    <a class="button" href="mailto:fastfinder.app@hotmail.com">Contact Us</a>
+
+    <div class="contact-box">
+      <div class="section-title">Contact Us</div>
+      <div class="contact-email">fastfider.app@hotmail.com</div>
+    </div>
+
+    <div class="download-box">
+      <div class="section-title">Download FastFinder for iOS</div>
+      <a
+        class="store-link"
+        href="https://apps.apple.com/app/id6757315627"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download FastFinder on the App Store"
+      >
+        <img
+          class="app-icon"
+          src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1c/d6/a1/1cd6a1d8-9711-f96a-97c7-950510fb36b0/AppIcon-0-0-1x_U007epad-0-0-0-0-85-220.png/460x0w.webp"
+          alt="FastFinder App Icon"
+        />
+      </a>
+      <div class="ios-note">Tap the app icon to open the App Store.</div>
+      <div class="android-note">Android version coming soon.</div>
+    </div>
   </main>
 </body>
 </html>
