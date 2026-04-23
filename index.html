@@ -86,10 +86,17 @@
     }
 
     .contact-email {
-      font-size: 17px;
-      font-weight: 600;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 500;
       color: #ffffff;
+      text-decoration: underline;
       word-break: break-word;
+      transition: opacity 0.18s ease;
+    }
+
+    .contact-email:hover {
+      opacity: 0.85;
     }
 
     .store-link {
@@ -102,10 +109,11 @@
     }
 
     .app-icon {
-      width: 92px;
-      height: 92px;
-      border-radius: 22px;
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
       object-fit: cover;
+      background: rgba(255, 255, 255, 0.08);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
       border: 1px solid rgba(255, 255, 255, 0.18);
       transition: transform 0.18s ease, opacity 0.18s ease;
@@ -142,8 +150,8 @@
       }
 
       .app-icon {
-        width: 84px;
-        height: 84px;
+        width: 92px;
+        height: 92px;
         border-radius: 20px;
       }
     }
@@ -166,7 +174,7 @@
 
     <div class="contact-box">
       <div class="section-title">Contact Us</div>
-      <div class="contact-email">fastfider.app@hotmail.com</div>
+      <a class="contact-email" href="mailto:fastfider.app@hotmail.com">fastfider.app@hotmail.com</a>
     </div>
 
     <div class="download-box">
@@ -180,7 +188,7 @@
       >
         <img
           class="app-icon"
-          src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1c/d6/a1/1cd6a1d8-9711-f96a-97c7-950510fb36b0/AppIcon-0-0-1x_U007epad-0-0-0-0-85-220.png/460x0w.webp"
+          src="fastfinderlogo.png"
           alt="FastFinder App Icon"
         />
       </a>
