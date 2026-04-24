@@ -3,8 +3,10 @@
 <head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6953791712829681"
      crossorigin="anonymous"></script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>FastFinder - Find nearby places faster</title>
   <meta
     name="description"
@@ -186,6 +188,7 @@
       font-weight: 800;
       border: 1px solid transparent;
       transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      cursor: pointer;
     }
 
     .button:hover {
@@ -209,6 +212,34 @@
       margin-top: 14px;
       font-size: 13px;
       color: rgba(16, 32, 51, 0.58);
+    }
+
+    .quick-search {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      max-width: 620px;
+      padding: 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 18px 38px rgba(16, 32, 51, 0.09);
+    }
+
+    .quick-search input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 0 10px;
+      font-size: 15px;
+      color: #101827;
+    }
+
+    .quick-search button {
+      border: 0;
+      white-space: nowrap;
     }
 
     .phone-card {
@@ -243,8 +274,7 @@
     .mock-screen {
       overflow: hidden;
       border-radius: 32px;
-      background:
-        linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
       min-height: 600px;
       border: 1px solid rgba(255, 255, 255, 0.10);
     }
@@ -451,6 +481,12 @@
       outline: none;
     }
 
+    .tool-button {
+      width: 100%;
+      margin-top: 12px;
+      border: 0;
+    }
+
     .tool-results {
       margin-top: 14px;
       display: grid;
@@ -462,6 +498,7 @@
       padding: 12px;
       background: rgba(255, 255, 255, 0.10);
       border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
     }
 
     .mini-result strong {
@@ -485,20 +522,6 @@
       color: rgba(255, 255, 255, 0.80);
       font-size: 13px;
       font-weight: 750;
-    }
-
-    .ad-placeholder {
-      border-radius: 24px;
-      border: 1px dashed rgba(16, 32, 51, 0.18);
-      background: rgba(255, 255, 255, 0.62);
-      min-height: 110px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: rgba(16, 32, 51, 0.46);
-      font-size: 13px;
-      font-weight: 700;
-      margin-top: 18px;
     }
 
     .download-section {
@@ -685,6 +708,14 @@
         padding: 22px;
       }
 
+      .quick-search {
+        flex-direction: column;
+      }
+
+      .quick-search input {
+        min-height: 44px;
+      }
+
       .mock-phone {
         width: 100%;
         max-width: 330px;
@@ -737,6 +768,11 @@
           clearly, and right from your location.
         </p>
 
+        <form class="quick-search" id="heroSearchForm">
+          <input id="heroSearchInput" type="text" placeholder="Search nearby places, e.g. coffee, parking, ATM" />
+          <button class="button button-primary" type="submit">Search nearby</button>
+        </form>
+
         <div class="cta-row">
           <a
             class="button button-primary"
@@ -748,12 +784,12 @@
           </a>
 
           <a class="button button-secondary" href="#web-tool">
-            Preview the web tool
+            Try web search
           </a>
         </div>
 
         <div class="hero-note">
-          Android version coming soon. Web search experience is in development.
+          Android version coming soon. Web search opens a quick Google Maps search.
         </div>
       </section>
 
@@ -845,50 +881,51 @@
             </p>
           </article>
         </div>
-
-        <div class="ad-placeholder">
-          Website ad placement ready<br />
-          Google AdSense can be added here after setup.
-        </div>
       </section>
 
       <section class="section" id="web-tool">
         <div class="web-tool">
           <div>
-            <div class="section-kicker">Coming next</div>
+            <div class="section-kicker">Web tool</div>
             <h2>FastFinder Web Search</h2>
             <p class="section-copy">
-              A lightweight web tool is planned so visitors can search for nearby options
-              before downloading the app. The web experience will stay limited, while the
-              full discovery flow remains inside the iOS app.
+              Search for nearby options directly from the website. For the full FastFinder
+              experience with categories, favorites, filters, and app navigation, download
+              the iOS app.
             </p>
 
-            <span class="coming-soon-pill">Limited preview → full experience in the app</span>
+            <span class="coming-soon-pill">Quick web search → full experience in the app</span>
           </div>
 
           <div class="tool-box">
-            <input
-              class="tool-input"
-              type="text"
-              value="coffee near me"
-              aria-label="Example search"
-              readonly
-            />
+            <form id="webSearchForm">
+              <input
+                class="tool-input"
+                id="webSearchInput"
+                type="text"
+                placeholder="Try: coffee near me, parking, ATM, pharmacy"
+                aria-label="Search nearby places"
+              />
+
+              <button class="button button-primary tool-button" type="submit">
+                Search on Maps
+              </button>
+            </form>
 
             <div class="tool-results">
-              <div class="mini-result">
-                <strong>Nearby cafe</strong>
-                <span>Preview result • full details in app</span>
+              <div class="mini-result" data-query="coffee near me">
+                <strong>Coffee near me</strong>
+                <span>Open nearby cafes in Google Maps</span>
               </div>
 
-              <div class="mini-result">
-                <strong>Popular food spot</strong>
-                <span>Preview result • full details in app</span>
-              </div>
-
-              <div class="mini-result">
+              <div class="mini-result" data-query="parking near me">
                 <strong>Parking nearby</strong>
-                <span>Preview result • full details in app</span>
+                <span>Find nearby parking options quickly</span>
+              </div>
+
+              <div class="mini-result" data-query="ATM near me">
+                <strong>ATM near me</strong>
+                <span>Search for nearby cash machines</span>
               </div>
             </div>
           </div>
@@ -902,8 +939,8 @@
           <div>
             <h2>Download FastFinder for iOS</h2>
             <p>
-              Start finding nearby places faster. Android and web search features are
-              planned for future releases.
+              Start finding nearby places faster. Android and expanded web search features
+              are planned for future releases.
             </p>
           </div>
 
@@ -945,6 +982,38 @@
   </div>
 
   <script>
+    function openMapsSearch(query) {
+      const cleanQuery = query.trim();
+
+      if (!cleanQuery) {
+        return;
+      }
+
+      const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanQuery);
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    const heroSearchForm = document.getElementById("heroSearchForm");
+    const heroSearchInput = document.getElementById("heroSearchInput");
+    const webSearchForm = document.getElementById("webSearchForm");
+    const webSearchInput = document.getElementById("webSearchInput");
+
+    heroSearchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      openMapsSearch(heroSearchInput.value || "places near me");
+    });
+
+    webSearchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      openMapsSearch(webSearchInput.value || "places near me");
+    });
+
+    document.querySelectorAll(".mini-result").forEach((item) => {
+      item.addEventListener("click", () => {
+        openMapsSearch(item.dataset.query || "places near me");
+      });
+    });
+
     const contactButton = document.getElementById("contactButton");
     const contactPopup = document.getElementById("contactPopup");
     const contactClose = document.getElementById("contactClose");
