@@ -216,9 +216,10 @@
 
     .quick-search {
       margin-top: 28px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
       gap: 10px;
-      max-width: 620px;
+      max-width: 720px;
       padding: 10px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.82);
@@ -227,7 +228,6 @@
     }
 
     .quick-search input {
-      flex: 1;
       min-width: 0;
       border: 0;
       outline: 0;
@@ -240,6 +240,41 @@
     .quick-search button {
       border: 0;
       white-space: nowrap;
+    }
+
+    .location-button {
+      min-height: 50px;
+      padding: 0 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(16, 32, 51, 0.10);
+      background: rgba(255, 255, 255, 0.88);
+      color: #101827;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .location-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(16, 32, 51, 0.08);
+    }
+
+    .location-button.is-active {
+      background: rgba(11, 98, 255, 0.12);
+      color: #0b62ff;
+      border-color: rgba(11, 98, 255, 0.22);
+    }
+
+    .search-status {
+      margin-top: 10px;
+      max-width: 720px;
+      min-height: 20px;
+      font-size: 13px;
+      color: rgba(16, 32, 51, 0.62);
+    }
+
+    .search-status strong {
+      color: #101827;
     }
 
     .phone-card {
@@ -487,6 +522,27 @@
       border: 0;
     }
 
+    .tool-location-button {
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .tool-location-button.is-active {
+      background: rgba(38, 194, 129, 0.18);
+      border-color: rgba(38, 194, 129, 0.36);
+    }
+
+    .tool-status {
+      margin-top: 10px;
+      min-height: 18px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
     .tool-results {
       margin-top: 14px;
       display: grid;
@@ -709,7 +765,7 @@
       }
 
       .quick-search {
-        flex-direction: column;
+        grid-template-columns: 1fr;
       }
 
       .quick-search input {
@@ -770,8 +826,13 @@
 
         <form class="quick-search" id="heroSearchForm">
           <input id="heroSearchInput" type="text" placeholder="Search nearby places, e.g. coffee, parking, ATM" />
+          <button class="location-button" type="button" id="heroLocationButton">Use my location</button>
           <button class="button button-primary" type="submit">Search nearby</button>
         </form>
+
+        <div class="search-status" id="heroSearchStatus">
+          Tip: allow location access for more accurate nearby results.
+        </div>
 
         <div class="cta-row">
           <a
@@ -789,7 +850,7 @@
         </div>
 
         <div class="hero-note">
-          Android version coming soon. Web search opens a quick Google Maps search.
+          Android version coming soon. Web search can use your browser location when allowed.
         </div>
       </section>
 
@@ -889,9 +950,8 @@
             <div class="section-kicker">Web tool</div>
             <h2>FastFinder Web Search</h2>
             <p class="section-copy">
-              Search for nearby options directly from the website. For the full FastFinder
-              experience with categories, favorites, filters, and app navigation, download
-              the iOS app.
+              Search for nearby options directly from the website. Allow location access
+              for more accurate results, or continue with a normal map search.
             </p>
 
             <span class="coming-soon-pill">Quick web search → full experience in the app</span>
@@ -903,27 +963,35 @@
                 class="tool-input"
                 id="webSearchInput"
                 type="text"
-                placeholder="Try: coffee near me, parking, ATM, pharmacy"
+                placeholder="Try: coffee, parking, ATM, pharmacy"
                 aria-label="Search nearby places"
               />
 
               <button class="button button-primary tool-button" type="submit">
-                Search on Maps
+                Search near me
+              </button>
+
+              <button class="button tool-location-button" type="button" id="webLocationButton">
+                Use my current location
               </button>
             </form>
 
+            <div class="tool-status" id="webSearchStatus">
+              Location is optional. If you allow it, results open closer to your current area.
+            </div>
+
             <div class="tool-results">
-              <div class="mini-result" data-query="coffee near me">
+              <div class="mini-result" data-query="coffee">
                 <strong>Coffee near me</strong>
-                <span>Open nearby cafes in Google Maps</span>
+                <span>Open nearby cafes using your location if available</span>
               </div>
 
-              <div class="mini-result" data-query="parking near me">
+              <div class="mini-result" data-query="parking">
                 <strong>Parking nearby</strong>
                 <span>Find nearby parking options quickly</span>
               </div>
 
-              <div class="mini-result" data-query="ATM near me">
+              <div class="mini-result" data-query="ATM">
                 <strong>ATM near me</strong>
                 <span>Search for nearby cash machines</span>
               </div>
@@ -982,35 +1050,112 @@
   </div>
 
   <script>
-    function openMapsSearch(query) {
-      const cleanQuery = query.trim();
+    let userLocation = null;
 
-      if (!cleanQuery) {
+    function setStatus(message) {
+      const heroStatus = document.getElementById("heroSearchStatus");
+      const webStatus = document.getElementById("webSearchStatus");
+
+      if (heroStatus) {
+        heroStatus.innerHTML = message;
+      }
+
+      if (webStatus) {
+        webStatus.innerHTML = message;
+      }
+    }
+
+    function setLocationButtonsActive(isActive) {
+      const heroButton = document.getElementById("heroLocationButton");
+      const webButton = document.getElementById("webLocationButton");
+
+      if (heroButton) {
+        heroButton.classList.toggle("is-active", isActive);
+        heroButton.textContent = isActive ? "Location ready" : "Use my location";
+      }
+
+      if (webButton) {
+        webButton.classList.toggle("is-active", isActive);
+        webButton.textContent = isActive ? "Location ready" : "Use my current location";
+      }
+    }
+
+    function requestUserLocation() {
+      if (!navigator.geolocation) {
+        setStatus("Location is not supported by this browser. You can still search normally.");
         return;
       }
 
-      const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanQuery);
+      setStatus("Requesting location permission...");
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          setLocationButtonsActive(true);
+          setStatus("<strong>Location ready.</strong> Your next search will use your current area.");
+        },
+        () => {
+          userLocation = null;
+          setLocationButtonsActive(false);
+          setStatus("Location was not allowed. You can still search normally with Google Maps.");
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+      );
+    }
+
+    function buildMapsUrl(query) {
+      const cleanQuery = (query || "").trim() || "places";
+
+      if (userLocation) {
+        return "https://www.google.com/maps/search/" +
+          encodeURIComponent(cleanQuery) +
+          "/@" +
+          userLocation.lat +
+          "," +
+          userLocation.lng +
+          ",15z";
+      }
+
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanQuery + " near me");
+    }
+
+    function openMapsSearch(query) {
+      const url = buildMapsUrl(query);
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
     const heroSearchForm = document.getElementById("heroSearchForm");
     const heroSearchInput = document.getElementById("heroSearchInput");
+    const heroLocationButton = document.getElementById("heroLocationButton");
+
     const webSearchForm = document.getElementById("webSearchForm");
     const webSearchInput = document.getElementById("webSearchInput");
+    const webLocationButton = document.getElementById("webLocationButton");
+
+    heroLocationButton.addEventListener("click", requestUserLocation);
+    webLocationButton.addEventListener("click", requestUserLocation);
 
     heroSearchForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      openMapsSearch(heroSearchInput.value || "places near me");
+      openMapsSearch(heroSearchInput.value || "places");
     });
 
     webSearchForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      openMapsSearch(webSearchInput.value || "places near me");
+      openMapsSearch(webSearchInput.value || "places");
     });
 
     document.querySelectorAll(".mini-result").forEach((item) => {
       item.addEventListener("click", () => {
-        openMapsSearch(item.dataset.query || "places near me");
+        openMapsSearch(item.dataset.query || "places");
       });
     });
 
