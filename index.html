@@ -499,16 +499,12 @@
       margin-top: 18px;
     }
 
-    .download-section,
-    .contact-section {
+    .download-section {
       border-radius: 34px;
       padding: 34px;
       background: rgba(255, 255, 255, 0.88);
       border: 1px solid rgba(16, 32, 51, 0.08);
       box-shadow: 0 22px 60px rgba(16, 32, 51, 0.08);
-    }
-
-    .download-section {
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 22px;
@@ -523,28 +519,14 @@
       box-shadow: 0 14px 30px rgba(16, 32, 51, 0.16);
     }
 
-    .download-section h2,
-    .contact-section h2 {
+    .download-section h2 {
       font-size: 32px;
     }
 
-    .download-section p,
-    .contact-section p {
+    .download-section p {
       margin: 8px 0 0;
       color: rgba(16, 32, 51, 0.64);
       line-height: 1.6;
-    }
-
-    .email-box {
-      margin-top: 18px;
-      display: inline-flex;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: #101827;
-      color: #ffffff;
-      font-weight: 800;
-      word-break: break-word;
-      box-shadow: 0 16px 32px rgba(16, 24, 39, 0.16);
     }
 
     footer {
@@ -558,22 +540,102 @@
       justify-content: space-between;
       gap: 14px;
       border-top: 1px solid rgba(16, 32, 51, 0.08);
+      position: relative;
     }
 
     .footer-links {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
-    .footer-links a {
+    .footer-links a,
+    .footer-links button {
       color: rgba(16, 32, 51, 0.62);
       text-decoration: none;
       font-weight: 650;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
     }
 
-    .footer-links a:hover {
+    .footer-links a:hover,
+    .footer-links button:hover {
       color: #101827;
+    }
+
+    .contact-popup {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 100;
+      width: min(360px, calc(100vw - 32px));
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(16, 32, 51, 0.10);
+      box-shadow: 0 24px 70px rgba(16, 32, 51, 0.22);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .contact-popup.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-popup-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-popup-title {
+      font-size: 15px;
+      font-weight: 850;
+      color: #101827;
+    }
+
+    .contact-popup-text {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(16, 32, 51, 0.62);
+    }
+
+    .contact-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background: rgba(16, 32, 51, 0.04);
+      color: rgba(16, 32, 51, 0.70);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .contact-email-display {
+      display: block;
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 15px;
+      background: #101827;
+      color: #ffffff;
+      font-weight: 850;
+      word-break: break-word;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(16, 24, 39, 0.14);
     }
 
     @media (max-width: 900px) {
@@ -616,8 +678,7 @@
       }
 
       .web-tool,
-      .download-section,
-      .contact-section {
+      .download-section {
         border-radius: 26px;
         padding: 22px;
       }
@@ -631,10 +692,9 @@
         min-height: 560px;
       }
 
-      .email-box {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
+      .contact-popup {
+        right: 16px;
+        bottom: 16px;
       }
     }
   </style>
@@ -855,19 +915,6 @@
           </a>
         </div>
       </section>
-
-      <section class="section" id="contact">
-        <div class="contact-section">
-          <div class="section-kicker">Contact</div>
-          <h2>Contact FastFinder</h2>
-          <p>
-            For questions, support, privacy requests, or business inquiries, contact the
-            developer using the email address below.
-          </p>
-
-          <div class="email-box">fastfinder.app@hotmail.com</div>
-        </div>
-      </section>
     </main>
 
     <footer>
@@ -876,10 +923,43 @@
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms</a>
-        <a href="#contact">Contact</a>
+        <button type="button" id="contactButton">Contact</button>
         <a href="https://apps.apple.com/app/id6757315627" target="_blank" rel="noopener noreferrer">App Store</a>
       </div>
     </footer>
+
+    <div class="contact-popup" id="contactPopup" role="dialog" aria-live="polite" aria-label="FastFinder contact email">
+      <div class="contact-popup-header">
+        <div>
+          <div class="contact-popup-title">Contact FastFinder</div>
+          <p class="contact-popup-text">For support, privacy requests, or business inquiries:</p>
+        </div>
+
+        <button class="contact-close" type="button" id="contactClose" aria-label="Close contact popup">×</button>
+      </div>
+
+      <div class="contact-email-display">fastfinder.app@hotmail.com</div>
+    </div>
   </div>
+
+  <script>
+    const contactButton = document.getElementById("contactButton");
+    const contactPopup = document.getElementById("contactPopup");
+    const contactClose = document.getElementById("contactClose");
+
+    contactButton.addEventListener("click", () => {
+      contactPopup.classList.add("is-visible");
+    });
+
+    contactClose.addEventListener("click", () => {
+      contactPopup.classList.remove("is-visible");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        contactPopup.classList.remove("is-visible");
+      }
+    });
+  </script>
 </body>
 </html>
