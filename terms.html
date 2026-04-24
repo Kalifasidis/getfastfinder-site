@@ -7,8 +7,11 @@
   <title>Terms of Use - FastFinder</title>
   <meta
     name="description"
-    content="Terms of Use for FastFinder, the app and website that help users discover nearby places quickly."
+    content="Terms of Use for FastFinder, including app usage, website usage, ads, third-party data, location-based results, and limitations."
   />
+
+  <link rel="icon" type="image/png" href="fastfinderlogo.png" />
+  <link rel="apple-touch-icon" href="fastfinderlogo.png" />
 
   <style>
     * {
@@ -159,16 +162,95 @@
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
-    .footer-links a {
+    .footer-links a,
+    .footer-links button {
       color: rgba(16, 32, 51, 0.62);
       text-decoration: none;
       font-weight: 650;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
     }
 
-    .footer-links a:hover {
+    .footer-links a:hover,
+    .footer-links button:hover {
       color: #101827;
+    }
+
+    .contact-popup {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 100;
+      width: min(360px, calc(100vw - 32px));
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(16, 32, 51, 0.10);
+      box-shadow: 0 24px 70px rgba(16, 32, 51, 0.22);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .contact-popup.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-popup-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-popup-title {
+      font-size: 15px;
+      font-weight: 850;
+      color: #101827;
+    }
+
+    .contact-popup-text {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(16, 32, 51, 0.62);
+    }
+
+    .contact-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background: rgba(16, 32, 51, 0.04);
+      color: rgba(16, 32, 51, 0.70);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .contact-email-display {
+      display: block;
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 15px;
+      background: #101827;
+      color: #ffffff;
+      font-weight: 850;
+      word-break: break-word;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(16, 24, 39, 0.14);
     }
 
     @media (max-width: 640px) {
@@ -183,6 +265,11 @@
 
       .nav-inner {
         padding: 12px 16px;
+      }
+
+      .contact-popup {
+        right: 16px;
+        bottom: 16px;
       }
     }
   </style>
@@ -207,82 +294,119 @@
       <p class="updated">Last updated: April 24, 2026</p>
 
       <p>
-        These Terms of Use apply to the FastFinder mobile app and FastFinder website.
-        By using FastFinder, you agree to these terms.
+        These Terms of Use apply to the FastFinder mobile app and the FastFinder website.
+        By using FastFinder, you agree to these terms. If you do not agree, do not use
+        the app or website.
       </p>
 
       <h2>1. Purpose of FastFinder</h2>
       <p>
         FastFinder helps users discover nearby places such as cafes, food spots, ATMs,
         parking, pharmacies, shops, and other useful locations. The service is intended
-        to make discovery faster and easier.
+        to make local discovery faster, simpler, and more convenient.
       </p>
 
-      <h2>2. Information accuracy</h2>
+      <h2>2. App and Website Availability</h2>
+      <p>
+        FastFinder may be available through the iOS app, website, and future web-based
+        tools. Features may differ between the app and website. Some features may be
+        limited, changed, paused, or removed at any time.
+      </p>
+
+      <h2>3. Information Accuracy</h2>
       <p>
         FastFinder may display information from third-party services, including place
-        names, addresses, ratings, opening hours, availability, contact details, and
-        navigation links. This information may change or may not always be complete,
+        names, addresses, ratings, opening hours, availability, photos, contact details,
+        and navigation links. This information may change and may not always be complete,
         accurate, or up to date.
       </p>
       <p>
         Users should always verify important details directly with the place or provider
-        before relying on them.
+        before relying on them, especially opening hours, availability, prices, location,
+        accessibility, services, and contact information.
       </p>
 
-      <h2>3. Location-based functionality</h2>
+      <h2>4. Location-Based Functionality</h2>
       <p>
         FastFinder uses location access while the app is in use to provide nearby results.
         Location-based results are provided for convenience and may vary depending on
-        device settings, network availability, third-party data, and user permissions.
+        device settings, GPS accuracy, network availability, third-party data, and user
+        permissions.
       </p>
 
-      <h2>4. Third-party services</h2>
+      <h2>5. Third-Party Services</h2>
       <p>
-        FastFinder may use third-party services such as mapping, place data, advertising,
-        analytics, or app store services. These third parties may have their own terms,
-        policies, and data practices.
+        FastFinder may use third-party services for maps, place data, navigation, app
+        distribution, advertising, consent management, analytics, hosting, or other
+        technical features. These third parties may have their own terms, privacy policies,
+        and data practices.
       </p>
 
-      <h2>5. Advertising</h2>
+      <h2>6. Advertising</h2>
       <p>
         FastFinder may display advertisements in the app or on the website. Ads may be
         provided by third-party advertising partners such as Google. Advertising behavior
-        may depend on user consent, region, device settings, and applicable privacy laws.
+        may depend on user consent, region, device settings, ad availability, and
+        applicable privacy laws.
       </p>
 
-      <h2>6. No guarantee of availability</h2>
+      <h2>7. Web Tool and Search Features</h2>
       <p>
-        FastFinder may change, pause, remove, or update features at any time. We do not
-        guarantee that the app, website, place data, or web tool will always be available,
-        uninterrupted, or error-free.
+        FastFinder may offer website-based search or preview tools. These tools are
+        intended for convenience and may provide limited information compared with the
+        full app experience. Search results and previews may be incomplete, delayed, or
+        unavailable.
       </p>
 
-      <h2>7. User responsibility</h2>
+      <h2>8. No Emergency or Safety-Critical Use</h2>
+      <p>
+        FastFinder should not be used as the only source for emergency, medical, safety,
+        legal, financial, travel, or time-critical decisions. If you need urgent help,
+        contact the appropriate official service or provider directly.
+      </p>
+
+      <h2>9. User Responsibility</h2>
       <p>
         Users are responsible for how they use the information provided by FastFinder.
-        FastFinder should not be used as the only source for important decisions involving
-        safety, travel, medical needs, payments, or urgent services.
+        You agree to use FastFinder lawfully and responsibly, and not to misuse the app,
+        website, third-party services, or any information displayed through FastFinder.
       </p>
 
-      <h2>8. Limitation of liability</h2>
+      <h2>10. No Guarantee of Availability</h2>
       <p>
-        FastFinder is provided on an “as is” and “as available” basis. To the maximum
-        extent permitted by law, the developer is not responsible for losses, damages,
-        incorrect information, unavailable services, third-party errors, or decisions
-        made based on information displayed in FastFinder.
+        FastFinder is provided on an “as is” and “as available” basis. We do not guarantee
+        that the app, website, place data, ads, web tools, or third-party services will
+        always be available, uninterrupted, secure, accurate, or error-free.
       </p>
 
-      <h2>9. Changes to these terms</h2>
+      <h2>11. Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by law, the developer is not responsible for
+        losses, damages, incorrect information, unavailable services, third-party errors,
+        advertising issues, navigation errors, or decisions made based on information
+        displayed in FastFinder.
+      </p>
+
+      <h2>12. Changes to FastFinder</h2>
+      <p>
+        FastFinder may be updated over time. We may add, remove, redesign, limit, or
+        modify features, categories, web tools, advertising placements, or available
+        content without prior notice.
+      </p>
+
+      <h2>13. Changes to These Terms</h2>
       <p>
         These Terms of Use may be updated from time to time. The latest version will be
-        available on this page.
+        available on this page. Continued use of FastFinder after changes means you
+        accept the updated terms.
       </p>
 
-      <h2>10. Contact</h2>
+      <h2>14. Contact</h2>
       <p>
-        For questions about these terms, contact the developer at:
+        For questions about these terms, support, privacy requests, or business inquiries,
+        contact the developer at:
       </p>
+
       <div class="email-box">fastfinder.app@hotmail.com</div>
     </section>
   </main>
@@ -291,10 +415,44 @@
     <div>© 2026 FastFinder. All rights reserved.</div>
 
     <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms</a>
       <a href="/">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <button type="button" id="contactButton">Contact</button>
+      <a href="https://apps.apple.com/app/id6757315627" target="_blank" rel="noopener noreferrer">App Store</a>
     </div>
   </footer>
+
+  <div class="contact-popup" id="contactPopup" role="dialog" aria-live="polite" aria-label="FastFinder contact email">
+    <div class="contact-popup-header">
+      <div>
+        <div class="contact-popup-title">Contact FastFinder</div>
+        <p class="contact-popup-text">For support, privacy requests, or business inquiries:</p>
+      </div>
+
+      <button class="contact-close" type="button" id="contactClose" aria-label="Close contact popup">×</button>
+    </div>
+
+    <div class="contact-email-display">fastfinder.app@hotmail.com</div>
+  </div>
+
+  <script>
+    const contactButton = document.getElementById("contactButton");
+    const contactPopup = document.getElementById("contactPopup");
+    const contactClose = document.getElementById("contactClose");
+
+    contactButton.addEventListener("click", () => {
+      contactPopup.classList.add("is-visible");
+    });
+
+    contactClose.addEventListener("click", () => {
+      contactPopup.classList.remove("is-visible");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        contactPopup.classList.remove("is-visible");
+      }
+    });
+  </script>
 </body>
 </html>
