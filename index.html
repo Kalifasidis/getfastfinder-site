@@ -3,198 +3,841 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FastFinder</title>
+  <title>FastFinder - Find nearby places faster</title>
+  <meta
+    name="description"
+    content="FastFinder helps you discover nearby cafes, food spots, ATMs, parking, and useful places quickly. Available now on iOS."
+  />
+
   <style>
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #102033;
       background:
-        linear-gradient(135deg, rgba(10, 18, 35, 0.88), rgba(20, 41, 74, 0.82)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+        radial-gradient(circle at top left, rgba(70, 145, 255, 0.16), transparent 32%),
+        radial-gradient(circle at 80% 20%, rgba(255, 83, 170, 0.14), transparent 30%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #f6f8fb 100%);
     }
 
-    .card {
-      width: 100%;
-      max-width: 760px;
-      background: rgba(12, 20, 36, 0.58);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 24px;
-      padding: 48px 32px;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      margin: 0 0 14px;
-      font-size: 48px;
-      line-height: 1.05;
-      font-weight: 800;
-    }
-
-    p {
-      margin: 0 auto;
-      max-width: 580px;
-      font-size: 18px;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.88);
-    }
-
-    .subtext {
-      margin-top: 18px;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .contact-box,
-    .download-box {
-      margin-top: 28px;
-      padding: 20px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .section-title {
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .contact-email {
-      display: inline-block;
-      font-size: 15px;
-      font-weight: 500;
-      color: #ffffff;
-      text-decoration: underline;
-      word-break: break-word;
-      transition: opacity 0.18s ease;
-    }
-
-    .contact-email:hover {
-      opacity: 0.85;
-    }
-
-    .store-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 14px;
-      text-decoration: none;
+    a {
       color: inherit;
     }
 
-    .app-icon {
-      width: 110px;
-      height: 110px;
-      border-radius: 24px;
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .nav {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      font-size: 19px;
+      color: #101827;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       object-fit: cover;
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      transition: transform 0.18s ease, opacity 0.18s ease;
+      box-shadow: 0 8px 20px rgba(16, 32, 51, 0.14);
     }
 
-    .app-icon:hover {
-      transform: translateY(-2px) scale(1.02);
-      opacity: 0.96;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(16, 32, 51, 0.72);
     }
 
-    .ios-note {
-      margin-top: 12px;
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.82);
+    .nav-links a {
+      text-decoration: none;
     }
 
-    .android-note {
+    .nav-links a:hover {
+      color: #101827;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #101827;
+      color: #ffffff !important;
+      box-shadow: 0 12px 24px rgba(16, 24, 39, 0.16);
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 78px 22px 54px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 10px 30px rgba(16, 32, 51, 0.06);
+      color: rgba(16, 32, 51, 0.72);
+      font-size: 13px;
+      font-weight: 750;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: #26c281;
+      box-shadow: 0 0 0 5px rgba(38, 194, 129, 0.12);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      color: #101827;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #0b62ff 0%, #d936a8 58%, #ff8a00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      margin: 22px 0 0;
+      max-width: 620px;
+      font-size: 19px;
+      line-height: 1.7;
+      color: rgba(16, 32, 51, 0.72);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: #101827;
+      color: #ffffff;
+      box-shadow: 0 18px 36px rgba(16, 24, 39, 0.20);
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.78);
+      color: #101827;
+      border-color: rgba(16, 32, 51, 0.10);
+      box-shadow: 0 16px 34px rgba(16, 32, 51, 0.08);
+    }
+
+    .hero-note {
       margin-top: 14px;
+      font-size: 13px;
+      color: rgba(16, 32, 51, 0.58);
+    }
+
+    .phone-card {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(11, 98, 255, 0.22), rgba(217, 54, 168, 0.18));
+      filter: blur(18px);
+      opacity: 0.95;
+    }
+
+    .mock-phone {
+      position: relative;
+      width: min(340px, 86vw);
+      border-radius: 42px;
+      background: #111827;
+      padding: 13px;
+      box-shadow:
+        0 34px 80px rgba(16, 32, 51, 0.24),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .mock-screen {
+      overflow: hidden;
+      border-radius: 32px;
+      background:
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+      min-height: 600px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .screen-top {
+      padding: 22px 18px 14px;
+      background:
+        radial-gradient(circle at top left, rgba(11, 98, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #ffffff, #f4f8ff);
+    }
+
+    .screen-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      color: #101827;
+    }
+
+    .screen-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .search-pill {
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #ffffff;
+      color: rgba(16, 32, 51, 0.56);
+      font-size: 14px;
+      font-weight: 650;
+      box-shadow: 0 12px 24px rgba(16, 32, 51, 0.08);
+      border: 1px solid rgba(16, 32, 51, 0.06);
+    }
+
+    .category-grid {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .category-tile {
+      min-height: 98px;
+      border-radius: 20px;
+      padding: 14px;
+      background: #ffffff;
+      border: 1px solid rgba(16, 32, 51, 0.07);
+      box-shadow: 0 12px 24px rgba(16, 32, 51, 0.06);
+    }
+
+    .category-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .category-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #101827;
+    }
+
+    .category-sub {
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(16, 32, 51, 0.54);
+    }
+
+    .result-card {
+      margin: 4px 16px 16px;
+      border-radius: 24px;
+      padding: 15px;
+      background: #101827;
+      color: white;
+      box-shadow: 0 18px 40px rgba(16, 24, 39, 0.22);
+    }
+
+    .result-card strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .result-card span {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+    }
+
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 46px 22px;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: #0b62ff;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      color: #101827;
+    }
+
+    .section-copy {
+      margin: 14px 0 0;
+      color: rgba(16, 32, 51, 0.68);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 18px 42px rgba(16, 32, 51, 0.07);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(11, 98, 255, 0.12), rgba(217, 54, 168, 0.10));
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #101827;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: rgba(16, 32, 51, 0.64);
+      line-height: 1.65;
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .web-tool {
+      border-radius: 32px;
+      padding: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 138, 0, 0.20), transparent 30%),
+        linear-gradient(135deg, #101827, #18243a);
+      color: #ffffff;
+      box-shadow: 0 28px 70px rgba(16, 24, 39, 0.22);
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .web-tool h2 {
+      color: #ffffff;
+    }
+
+    .web-tool p {
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .tool-box {
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .tool-input {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.96);
+      color: #101827;
+      padding: 0 16px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .tool-results {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-result {
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .mini-result strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .mini-result span {
+      display: block;
+      margin-top: 3px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+    }
+
+    .coming-soon-pill {
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.80);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .ad-placeholder {
+      border-radius: 24px;
+      border: 1px dashed rgba(16, 32, 51, 0.18);
+      background: rgba(255, 255, 255, 0.62);
+      min-height: 110px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: rgba(16, 32, 51, 0.46);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 18px;
+    }
+
+    .download-section {
+      border-radius: 34px;
+      padding: 34px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 22px 60px rgba(16, 32, 51, 0.08);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .download-section img {
+      width: 86px;
+      height: 86px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 14px 30px rgba(16, 32, 51, 0.16);
+    }
+
+    .download-section h2 {
+      font-size: 32px;
+    }
+
+    .download-section p {
+      margin: 8px 0 0;
+      color: rgba(16, 32, 51, 0.64);
+      line-height: 1.6;
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 22px 44px;
+      color: rgba(16, 32, 51, 0.56);
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      border-top: 1px solid rgba(16, 32, 51, 0.08);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(16, 32, 51, 0.62);
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    .footer-links a:hover {
+      color: #101827;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .web-tool,
+      .download-section {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-card {
+        min-height: auto;
+        padding-top: 10px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .download-section {
+        text-align: center;
+        justify-items: center;
+      }
     }
 
     @media (max-width: 640px) {
-      .card {
-        padding: 36px 22px;
+      .nav-inner {
+        padding: 12px 16px;
       }
 
-      h1 {
-        font-size: 36px;
+      .nav-links a:not(.nav-cta) {
+        display: none;
       }
 
-      p {
-        font-size: 16px;
+      .hero {
+        padding: 48px 16px 34px;
       }
 
-      .app-icon {
-        width: 92px;
-        height: 92px;
-        border-radius: 20px;
+      .section {
+        padding: 34px 16px;
+      }
+
+      .web-tool,
+      .download-section {
+        border-radius: 26px;
+        padding: 22px;
+      }
+
+      .mock-phone {
+        width: 100%;
+        max-width: 330px;
+      }
+
+      .mock-screen {
+        min-height: 560px;
       }
     }
   </style>
 </head>
+
 <body>
-  <main class="card">
-    <div class="badge">FastFinder Website • Under Construction</div>
+  <div class="page">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="fastfinderlogo.png" alt="FastFinder logo" />
+          <span>FastFinder</span>
+        </a>
 
-    <h1>FastFinder is coming soon</h1>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#web-tool">Web tool</a>
+          <a href="#download" class="nav-cta">Download iOS</a>
+        </div>
+      </div>
+    </nav>
 
-    <p>
-      We are currently preparing the official FastFinder website.
-      The app is already live on iOS, and the full website experience will be available soon.
-    </p>
+    <header class="hero">
+      <section>
+        <div class="eyebrow">
+          <span class="dot"></span>
+          Available now on iOS
+        </div>
 
-    <p class="subtext">
-      Thank you for your patience while we complete the final touches.
-    </p>
+        <h1>
+          Find nearby places
+          <span class="gradient-text">faster.</span>
+        </h1>
 
-    <div class="contact-box">
-      <div class="section-title">Contact Us</div>
-      <a class="contact-email" href="mailto:fastfinder.app@hotmail.com">fastfinder.app@hotmail.com</a>
-    </div>
+        <p class="hero-copy">
+          FastFinder helps you discover useful places around you without wasting time.
+          Find cafes, food spots, ATMs, parking, pharmacies, shops, and more — quickly,
+          clearly, and right from your location.
+        </p>
 
-    <div class="download-box">
-      <div class="section-title">Download FastFinder for iOS</div>
-      <a
-        class="store-link"
-        href="https://apps.apple.com/app/id6757315627"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Download FastFinder on the App Store"
-      >
-        <img
-          class="app-icon"
-          src="fastfinderlogo.png"
-          alt="FastFinder App Icon"
-        />
-      </a>
-      <div class="ios-note">Tap the app icon to open the App Store.</div>
-      <div class="android-note">Android version coming soon.</div>
-    </div>
-  </main>
+        <div class="cta-row">
+          <a
+            class="button button-primary"
+            href="https://apps.apple.com/app/id6757315627"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download on the App Store
+          </a>
+
+          <a class="button button-secondary" href="#web-tool">
+            Preview the web tool
+          </a>
+        </div>
+
+        <div class="hero-note">
+          Android version coming soon. Web search experience is in development.
+        </div>
+      </section>
+
+      <aside class="phone-card" aria-label="FastFinder app preview">
+        <div class="glow"></div>
+
+        <div class="mock-phone">
+          <div class="mock-screen">
+            <div class="screen-top">
+              <div class="screen-logo">
+                <img src="fastfinderlogo.png" alt="FastFinder icon" />
+                <span>FastFinder</span>
+              </div>
+
+              <div class="search-pill">Nearby useful places • Fast suggestions</div>
+            </div>
+
+            <div class="category-grid">
+              <div class="category-tile">
+                <div class="category-icon">☕️</div>
+                <div class="category-title">Cafes</div>
+                <div class="category-sub">Nearby coffee spots</div>
+              </div>
+
+              <div class="category-tile">
+                <div class="category-icon">🍔</div>
+                <div class="category-title">Food</div>
+                <div class="category-sub">Quick bites nearby</div>
+              </div>
+
+              <div class="category-tile">
+                <div class="category-icon">🏧</div>
+                <div class="category-title">ATMs</div>
+                <div class="category-sub">Find cash fast</div>
+              </div>
+
+              <div class="category-tile">
+                <div class="category-icon">🅿️</div>
+                <div class="category-title">Parking</div>
+                <div class="category-sub">Useful nearby spots</div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <strong>Suggested nearby option</strong>
+              <span>Rating, distance, open status, details, and directions in one place.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="section" id="features">
+        <div class="section-heading">
+          <div class="section-kicker">Why FastFinder</div>
+          <h2>Designed for quick decisions, not endless scrolling.</h2>
+          <p class="section-copy">
+            FastFinder focuses on speed, clarity, and nearby usefulness. Open the app,
+            choose what you need, and quickly move toward the best available option.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature-card">
+            <div class="feature-icon">⚡️</div>
+            <h3>Fast discovery</h3>
+            <p>
+              Quickly browse nearby categories like cafes, food, parking, ATMs, pharmacies,
+              and more without digging through cluttered maps.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📍</div>
+            <h3>Location-based results</h3>
+            <p>
+              Results are based on your current location while the app is in use, helping
+              you find relevant places around you in real time.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🧭</div>
+            <h3>Ready to act</h3>
+            <p>
+              See useful details and open navigation quickly, so you can stop searching
+              and start moving.
+            </p>
+          </article>
+        </div>
+
+        <div class="ad-placeholder">
+          Website ad placement ready<br />
+          Google AdSense can be added here after setup.
+        </div>
+      </section>
+
+      <section class="section" id="web-tool">
+        <div class="web-tool">
+          <div>
+            <div class="section-kicker">Coming next</div>
+            <h2>FastFinder Web Search</h2>
+            <p class="section-copy">
+              A lightweight web tool is planned so visitors can search for nearby options
+              before downloading the app. The web experience will stay limited, while the
+              full discovery flow remains inside the iOS app.
+            </p>
+
+            <span class="coming-soon-pill">Limited preview → full experience in the app</span>
+          </div>
+
+          <div class="tool-box">
+            <input
+              class="tool-input"
+              type="text"
+              value="coffee near me"
+              aria-label="Example search"
+              readonly
+            />
+
+            <div class="tool-results">
+              <div class="mini-result">
+                <strong>Nearby cafe</strong>
+                <span>Preview result • full details in app</span>
+              </div>
+
+              <div class="mini-result">
+                <strong>Popular food spot</strong>
+                <span>Preview result • full details in app</span>
+              </div>
+
+              <div class="mini-result">
+                <strong>Parking nearby</strong>
+                <span>Preview result • full details in app</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="download">
+        <div class="download-section">
+          <img src="fastfinderlogo.png" alt="FastFinder app icon" />
+
+          <div>
+            <h2>Download FastFinder for iOS</h2>
+            <p>
+              Start finding nearby places faster. Android and web search features are
+              planned for future releases.
+            </p>
+          </div>
+
+          <a
+            class="button button-primary"
+            href="https://apps.apple.com/app/id6757315627"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open App Store
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 FastFinder. All rights reserved.</div>
+
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:fastfinder.app@hotmail.com">Contact</a>
+        <a href="https://apps.apple.com/app/id6757315627" target="_blank" rel="noopener noreferrer">App Store</a>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
