@@ -496,12 +496,16 @@
       margin-top: 18px;
     }
 
-    .download-section {
+    .download-section,
+    .contact-section {
       border-radius: 34px;
       padding: 34px;
       background: rgba(255, 255, 255, 0.88);
       border: 1px solid rgba(16, 32, 51, 0.08);
       box-shadow: 0 22px 60px rgba(16, 32, 51, 0.08);
+    }
+
+    .download-section {
       display: grid;
       grid-template-columns: auto 1fr auto;
       gap: 22px;
@@ -516,14 +520,28 @@
       box-shadow: 0 14px 30px rgba(16, 32, 51, 0.16);
     }
 
-    .download-section h2 {
+    .download-section h2,
+    .contact-section h2 {
       font-size: 32px;
     }
 
-    .download-section p {
+    .download-section p,
+    .contact-section p {
       margin: 8px 0 0;
       color: rgba(16, 32, 51, 0.64);
       line-height: 1.6;
+    }
+
+    .email-box {
+      margin-top: 18px;
+      display: inline-flex;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #101827;
+      color: #ffffff;
+      font-weight: 800;
+      word-break: break-word;
+      box-shadow: 0 16px 32px rgba(16, 24, 39, 0.16);
     }
 
     footer {
@@ -595,7 +613,8 @@
       }
 
       .web-tool,
-      .download-section {
+      .download-section,
+      .contact-section {
         border-radius: 26px;
         padding: 22px;
       }
@@ -607,6 +626,12 @@
 
       .mock-screen {
         min-height: 560px;
+      }
+
+      .email-box {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
       }
     }
   </style>
@@ -624,6 +649,7 @@
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#web-tool">Web tool</a>
+          <a href="#contact">Contact</a>
           <a href="#download" class="nav-cta">Download iOS</a>
         </div>
       </div>
@@ -827,6 +853,19 @@
           </a>
         </div>
       </section>
+
+      <section class="section" id="contact">
+        <div class="contact-section">
+          <div class="section-kicker">Contact</div>
+          <h2>Contact FastFinder</h2>
+          <p>
+            For questions, support, privacy requests, or business inquiries, contact the
+            developer using the email address below.
+          </p>
+
+          <div class="email-box">fastfinder.app@hotmail.com</div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -834,7 +873,8 @@
 
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
-        <a href="mailto:fastfinder.app@hotmail.com">Contact</a>
+        <a href="terms.html">Terms</a>
+        <a href="#contact">Contact</a>
         <a href="https://apps.apple.com/app/id6757315627" target="_blank" rel="noopener noreferrer">App Store</a>
       </div>
     </footer>
