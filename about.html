@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6953791712829681"
+     crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>About FastFinder - Nearby place discovery made faster</title>
+  <meta
+    name="description"
+    content="Learn what FastFinder is, how it helps people find nearby cafes, restaurants, ATMs, parking, pharmacies, and useful places faster, and how the app uses location-based discovery."
+  />
+
+  <link rel="icon" type="image/png" href="fastfinderlogo.png" />
+  <link rel="apple-touch-icon" href="fastfinderlogo.png" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #102033;
+      background:
+        radial-gradient(circle at top left, rgba(70, 145, 255, 0.16), transparent 32%),
+        radial-gradient(circle at 80% 20%, rgba(255, 83, 170, 0.14), transparent 30%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #f6f8fb 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .nav {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      font-size: 19px;
+      color: #101827;
+      white-space: nowrap;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(16, 32, 51, 0.14);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 650;
+      color: rgba(16, 32, 51, 0.72);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: #101827;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #101827;
+      color: #ffffff !important;
+      box-shadow: 0 12px 24px rgba(16, 24, 39, 0.16);
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 78px 22px 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 10px 30px rgba(16, 32, 51, 0.06);
+      color: rgba(16, 32, 51, 0.72);
+      font-size: 13px;
+      font-weight: 750;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: #26c281;
+      box-shadow: 0 0 0 5px rgba(38, 194, 129, 0.12);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(44px, 6vw, 74px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      color: #101827;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #0b62ff 0%, #d936a8 58%, #ff8a00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      margin: 22px 0 0;
+      max-width: 760px;
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(16, 32, 51, 0.72);
+    }
+
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 38px 22px;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      margin-bottom: 10px;
+      color: #0b62ff;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      color: #101827;
+    }
+
+    .section-copy {
+      margin: 14px 0 0;
+      color: rgba(16, 32, 51, 0.68);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .content-panel {
+      border-radius: 32px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 22px 60px rgba(16, 32, 51, 0.08);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .content-panel p {
+      margin: 0 0 16px;
+      color: rgba(16, 32, 51, 0.68);
+      line-height: 1.78;
+      font-size: 16px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .info-list li {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(11, 98, 255, 0.06);
+      border: 1px solid rgba(11, 98, 255, 0.10);
+      color: rgba(16, 32, 51, 0.70);
+      line-height: 1.55;
+    }
+
+    .info-list strong {
+      color: #101827;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 18px 42px rgba(16, 32, 51, 0.07);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(11, 98, 255, 0.12), rgba(217, 54, 168, 0.10));
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #101827;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: rgba(16, 32, 51, 0.64);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .guide-card {
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      box-shadow: 0 18px 42px rgba(16, 32, 51, 0.07);
+    }
+
+    .guide-card h3 {
+      margin: 0 0 10px;
+      color: #101827;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .guide-card p {
+      margin: 0 0 14px;
+      color: rgba(16, 32, 51, 0.66);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .guide-card a {
+      font-weight: 850;
+      color: #0b62ff;
+      text-decoration: none;
+    }
+
+    .guide-card a:hover {
+      text-decoration: underline;
+    }
+
+    .cta-panel {
+      border-radius: 34px;
+      padding: 34px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 138, 0, 0.20), transparent 30%),
+        linear-gradient(135deg, #101827, #18243a);
+      color: #ffffff;
+      box-shadow: 0 28px 70px rgba(16, 24, 39, 0.22);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .cta-panel img {
+      width: 86px;
+      height: 86px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .cta-panel h2 {
+      color: #ffffff;
+      font-size: 32px;
+    }
+
+    .cta-panel p {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, 0.74);
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: #ffffff;
+      color: #101827;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
+    }
+
+    .button-dark {
+      background: #101827;
+      color: #ffffff;
+      box-shadow: 0 18px 36px rgba(16, 24, 39, 0.20);
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 22px 44px;
+      color: rgba(16, 32, 51, 0.56);
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      border-top: 1px solid rgba(16, 32, 51, 0.08);
+      position: relative;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links a,
+    .footer-links button {
+      color: rgba(16, 32, 51, 0.62);
+      text-decoration: none;
+      font-weight: 650;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover {
+      color: #101827;
+    }
+
+    .contact-popup {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 100;
+      width: min(360px, calc(100vw - 32px));
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(16, 32, 51, 0.10);
+      box-shadow: 0 24px 70px rgba(16, 32, 51, 0.22);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .contact-popup.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-popup-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-popup-title {
+      font-size: 15px;
+      font-weight: 850;
+      color: #101827;
+    }
+
+    .contact-popup-text {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(16, 32, 51, 0.62);
+    }
+
+    .contact-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 32, 51, 0.08);
+      background: rgba(16, 32, 51, 0.04);
+      color: rgba(16, 32, 51, 0.70);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .contact-email-display {
+      display: block;
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 15px;
+      background: #101827;
+      color: #ffffff;
+      font-weight: 850;
+      word-break: break-word;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(16, 24, 39, 0.14);
+    }
+
+    @media (max-width: 900px) {
+      .content-panel,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-panel {
+        text-align: center;
+        justify-items: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        padding: 12px 16px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero {
+        padding: 48px 16px 28px;
+      }
+
+      .section {
+        padding: 32px 16px;
+      }
+
+      .content-panel,
+      .cta-panel {
+        border-radius: 26px;
+        padding: 22px;
+      }
+
+      .contact-popup {
+        right: 16px;
+        bottom: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="fastfinderlogo.png" alt="FastFinder logo" />
+          <span>FastFinder</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="coffee-near-me.html">Guides</a>
+          <a href="https://apps.apple.com/app/id6757315627" class="nav-cta" target="_blank" rel="noopener noreferrer">Download iOS</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">
+        <span class="dot"></span>
+        About FastFinder
+      </div>
+
+      <h1>
+        Nearby discovery
+        <span class="gradient-text">without the extra scrolling.</span>
+      </h1>
+
+      <p class="hero-copy">
+        FastFinder is a location-based discovery app built to help people find useful nearby places faster.
+        Whether you need a cafe, restaurant, ATM, parking option, pharmacy, shop, or another everyday place,
+        FastFinder is designed to reduce the time between “I need something nearby” and “I know where to go.”
+      </p>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="content-panel">
+          <div>
+            <div class="section-kicker">What FastFinder does</div>
+            <h2>A practical app for everyday nearby decisions.</h2>
+            <p>
+              Many people use maps several times a week, but the experience can become slow when you only need
+              a quick answer. You may need to compare distance, opening status, rating, category, and directions
+              before deciding where to go. FastFinder is built around that exact moment.
+            </p>
+            <p>
+              The app organizes common nearby needs into clear categories, so you can start from what you need
+              instead of typing a long search every time. It is especially useful when you are walking, driving,
+              traveling, or simply trying to make a faster local decision.
+            </p>
+            <p>
+              FastFinder does not try to replace full map apps. Instead, it helps you begin the discovery process
+              faster, compare useful details, and then move toward navigation when you are ready.
+            </p>
+          </div>
+
+          <ul class="info-list">
+            <li><strong>Use case:</strong> finding useful nearby places quickly, from cafes and food to ATMs and parking.</li>
+            <li><strong>Main platform:</strong> iOS app, with a lightweight web search experience on the website.</li>
+            <li><strong>Location access:</strong> used to show nearby options when the user allows location permission.</li>
+            <li><strong>Goal:</strong> reduce clutter, reduce searching time, and help users act faster.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-kicker">Why it exists</div>
+          <h2>Built around simple, real-world moments.</h2>
+          <p class="section-copy">
+            FastFinder focuses on useful categories that people often need when they are already on the move.
+            The purpose is not to create another complicated tool, but to make everyday local discovery easier.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon">☕️</div>
+            <h3>Quick local stops</h3>
+            <p>
+              Find nearby cafes, restaurants, food spots, shops, and other everyday places without overthinking the search.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🅿️</div>
+            <h3>Practical needs</h3>
+            <p>
+              Search for parking, ATMs, pharmacies, and useful local services when speed matters more than browsing.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🧭</div>
+            <h3>Ready to move</h3>
+            <p>
+              Use details and directions to stop comparing results and move toward a practical nearby option.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="content-panel">
+          <div>
+            <div class="section-kicker">Privacy and location</div>
+            <h2>Location is used for nearby results, not for unnecessary profile data.</h2>
+            <p>
+              FastFinder is designed around location-based results. When you allow location access, the app can show
+              places around your current area. If you do not allow location access, some discovery features may be less
+              accurate or unavailable.
+            </p>
+            <p>
+              The app does not require users to create a social profile, upload photos, share contacts, or provide
+              personal identity information in order to browse nearby places. The website also includes a Privacy Policy
+              explaining the main data practices in a simple way.
+            </p>
+            <p>
+              The goal is to keep the experience focused: choose a category, review nearby options, and continue with
+              navigation or more details if needed.
+            </p>
+          </div>
+
+          <ul class="info-list">
+            <li><strong>No social feed:</strong> FastFinder is a utility app, not a social network.</li>
+            <li><strong>No account-first flow:</strong> nearby discovery does not require a public profile.</li>
+            <li><strong>Clear purpose:</strong> location is used to improve nearby search relevance.</li>
+            <li><strong>Legal pages:</strong> privacy and terms are available from every page footer.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-kicker">Website guides</div>
+          <h2>Helpful content for common nearby searches.</h2>
+          <p class="section-copy">
+            The FastFinder website includes practical guide pages for common local searches. These guides explain
+            what to look for, how to compare options, and when using the app can make discovery faster.
+          </p>
+        </div>
+
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>Find coffee near you</h3>
+            <p>
+              Learn how to search for nearby cafes, check opening hours, compare distance, and make a quick coffee stop decision.
+            </p>
+            <a href="coffee-near-me.html">Read the coffee guide →</a>
+          </article>
+
+          <article class="guide-card">
+            <h3>Find parking nearby</h3>
+            <p>
+              Parking searches are often stressful. This guide explains how to find nearby parking options more efficiently.
+            </p>
+            <a href="parking-near-me.html">Read the parking guide →</a>
+          </article>
+
+          <article class="guide-card">
+            <h3>Find an ATM near you</h3>
+            <p>
+              Learn what to check when you need a nearby cash machine, from distance to availability and practical location details.
+            </p>
+            <a href="atm-near-me.html">Read the ATM guide →</a>
+          </article>
+
+          <article class="guide-card">
+            <h3>Find restaurants nearby</h3>
+            <p>
+              Compare restaurants, food spots, ratings, opening status, and directions before deciding where to go.
+            </p>
+            <a href="restaurants-near-me.html">Read the restaurant guide →</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="cta-panel">
+          <img src="fastfinderlogo.png" alt="FastFinder app icon" />
+
+          <div>
+            <h2>Download FastFinder for iOS</h2>
+            <p>
+              Start finding nearby places faster. The website offers helpful guides and a lightweight web search,
+              while the full discovery experience is available inside the iOS app.
+            </p>
+          </div>
+
+          <a
+            class="button button-primary"
+            href="https://apps.apple.com/app/id6757315627"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open App Store
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 FastFinder. All rights reserved.</div>
+
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="coffee-near-me.html">Coffee Guide</a>
+        <a href="parking-near-me.html">Parking Guide</a>
+        <a href="atm-near-me.html">ATM Guide</a>
+        <a href="restaurants-near-me.html">Restaurants Guide</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <button type="button" id="contactButton">Email</button>
+        <a href="https://apps.apple.com/app/id6757315627" target="_blank" rel="noopener noreferrer">App Store</a>
+      </div>
+    </footer>
+
+    <div class="contact-popup" id="contactPopup" role="dialog" aria-live="polite" aria-label="FastFinder contact email">
+      <div class="contact-popup-header">
+        <div>
+          <div class="contact-popup-title">Contact FastFinder</div>
+          <p class="contact-popup-text">For support, privacy requests, or business inquiries:</p>
+        </div>
+
+        <button class="contact-close" type="button" id="contactClose" aria-label="Close contact popup">×</button>
+      </div>
+
+      <div class="contact-email-display">fastfinder.app@hotmail.com</div>
+    </div>
+  </div>
+
+  <script>
+    const contactButton = document.getElementById("contactButton");
+    const contactPopup = document.getElementById("contactPopup");
+    const contactClose = document.getElementById("contactClose");
+
+    contactButton.addEventListener("click", () => {
+      contactPopup.classList.add("is-visible");
+    });
+
+    contactClose.addEventListener("click", () => {
+      contactPopup.classList.remove("is-visible");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        contactPopup.classList.remove("is-visible");
+      }
+    });
+  </script>
+</body>
+</html>
