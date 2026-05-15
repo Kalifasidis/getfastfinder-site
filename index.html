@@ -957,3 +957,261 @@
           </div>
         </div>
       </section>
+
+      <section class="section" id="how-it-works">
+        <div class="how-panel">
+          <div>
+            <div class="section-kicker">How it works</div>
+            <h2>A simple flow for quick local decisions.</h2>
+            <p class="section-copy">
+              FastFinder is built around a practical idea: when you need something nearby,
+              you should be able to start quickly, compare useful options, and move toward
+              the place that makes sense for your situation.
+            </p>
+          </div>
+
+          <ol class="steps">
+            <li>
+              <strong>Choose what you need.</strong>
+              Type a search query or select a common nearby category.
+            </li>
+
+            <li>
+              <strong>Allow location if useful.</strong>
+              Your browser can provide your current area only after permission.
+            </li>
+
+            <li>
+              <strong>Open nearby results.</strong>
+              FastFinder opens a relevant Google Maps search for your query.
+            </li>
+
+            <li>
+              <strong>Check before you go.</strong>
+              Review opening status, distance, route, availability, and details directly on the map.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div class="section-kicker">Why it helps</div>
+          <h2>Useful when you need a nearby answer quickly.</h2>
+          <p class="section-copy">
+            Local search can become slow when you have to type different queries, compare many
+            map results, check opening status, and decide while already moving. FastFinder keeps
+            the first step simple by giving you a focused place to start.
+          </p>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <div class="info-icon">⚡️</div>
+            <h3>Fast start</h3>
+            <p>
+              Open the website, type what you need, or select a category without overthinking
+              the first search.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <div class="info-icon">📍</div>
+            <h3>Location-aware</h3>
+            <p>
+              When you allow location access, the search can open closer to your current area.
+              If not, normal map search still works.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <div class="info-icon">🧭</div>
+            <h3>Action-ready</h3>
+            <p>
+              Results open in Google Maps so you can check route, distance, hours, and directions
+              before choosing where to go.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="apps">
+        <div class="download-panel">
+          <img src="fastfinderlogo.png" alt="FastFinder app icon" />
+
+          <div>
+            <div class="section-kicker">Mobile apps</div>
+            <h2>FastFinder is also available on mobile.</h2>
+            <p>
+              Use the web tool directly from this website, or download the mobile app from the official stores.
+            </p>
+          </div>
+
+          <div class="store-buttons">
+            <a
+              class="button button-dark"
+              href="https://apps.apple.com/app/id6757315627"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              App Store
+            </a>
+
+            <a
+              class="button button-secondary"
+              href="https://play.google.com/store/apps/details?id=com.fastfinder.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Play
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 FastFinder. All rights reserved.</div>
+
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="#web-tool">Web Tool</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <button type="button" id="contactButton">Email</button>
+      </div>
+    </footer>
+
+    <div class="contact-popup" id="contactPopup" role="dialog" aria-live="polite" aria-label="FastFinder contact email">
+      <div class="contact-popup-header">
+        <div>
+          <div class="contact-popup-title">Contact FastFinder</div>
+          <p class="contact-popup-text">For support, privacy requests, or business inquiries:</p>
+        </div>
+
+        <button class="contact-close" type="button" id="contactClose" aria-label="Close contact popup">×</button>
+      </div>
+
+      <div class="contact-email-display">fastfinder.app@hotmail.com</div>
+    </div>
+  </div>
+
+  <script>
+    let userLocation = null;
+
+    function setStatus(message) {
+      const webStatus = document.getElementById("webSearchStatus");
+
+      if (webStatus) {
+        webStatus.innerHTML = message;
+      }
+    }
+
+    function setLocationButtonActive(isActive) {
+      const webButton = document.getElementById("webLocationButton");
+
+      if (webButton) {
+        webButton.classList.toggle("is-active", isActive);
+        webButton.textContent = isActive ? "Location ready" : "Use my location";
+      }
+    }
+
+    function requestUserLocation() {
+      if (!navigator.geolocation) {
+        setStatus("Location is not supported by this browser. You can still search normally.");
+        return;
+      }
+
+      setStatus("Requesting location permission...");
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          setLocationButtonActive(true);
+          setStatus("<strong>Location ready.</strong> Your next search will use your current area.");
+        },
+        () => {
+          userLocation = null;
+          setLocationButtonActive(false);
+          setStatus("Location was not allowed. You can still search normally with Google Maps.");
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+      );
+    }
+
+    function buildMapsUrl(query) {
+      const cleanQuery = (query || "").trim() || "places";
+
+      if (userLocation) {
+        return "https://www.google.com/maps/search/" +
+          encodeURIComponent(cleanQuery) +
+          "/@" +
+          userLocation.lat +
+          "," +
+          userLocation.lng +
+          ",15z";
+      }
+
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(cleanQuery + " near me");
+    }
+
+    function openMapsSearch(query) {
+      const url = buildMapsUrl(query);
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    const webSearchForm = document.getElementById("webSearchForm");
+    const webSearchInput = document.getElementById("webSearchInput");
+    const webLocationButton = document.getElementById("webLocationButton");
+
+    if (webLocationButton) {
+      webLocationButton.addEventListener("click", requestUserLocation);
+    }
+
+    if (webSearchForm && webSearchInput) {
+      webSearchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        openMapsSearch(webSearchInput.value || "places");
+      });
+    }
+
+    document.querySelectorAll(".category-button").forEach((item) => {
+      item.addEventListener("click", () => {
+        openMapsSearch(item.dataset.query || "places");
+      });
+    });
+
+    const contactButton = document.getElementById("contactButton");
+    const contactPopup = document.getElementById("contactPopup");
+    const contactClose = document.getElementById("contactClose");
+
+    if (contactButton && contactPopup) {
+      contactButton.addEventListener("click", () => {
+        contactPopup.classList.add("is-visible");
+      });
+    }
+
+    if (contactClose && contactPopup) {
+      contactClose.addEventListener("click", () => {
+        contactPopup.classList.remove("is-visible");
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && contactPopup) {
+        contactPopup.classList.remove("is-visible");
+      }
+    });
+  </script>
+</body>
+</html>
