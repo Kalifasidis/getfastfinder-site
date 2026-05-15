@@ -10,7 +10,7 @@
   <title>FastFinder - Nearby place search tool</title>
   <meta
     name="description"
-    content="FastFinder is a simple nearby place search tool that helps you quickly search for cafes, restaurants, parking, ATMs, pharmacies, supermarkets, gas stations, hotels, shops, and other useful places near your location."
+    content="FastFinder is a simple nearby place search tool that helps you quickly search for cafes, restaurants, fast food, ATMs, parking, supermarkets, mini markets, pharmacies, gas stations, gyms, bakeries, pastry shops, cinemas, doctors, hair salons, nails, optical stores, pet shops, clothing stores, flower shops, butcher shops, and other useful places near your location."
   />
 
   <link rel="icon" type="image/png" href="fastfinderlogo.png" />
@@ -209,6 +209,13 @@
       color: rgba(16, 32, 51, 0.68);
       font-size: 17px;
       line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
     }
 
     .tool-shell {
@@ -735,8 +742,11 @@
 
         <p class="hero-copy">
           FastFinder is a simple location-based web tool for quick nearby searches.
-          Search for cafes, restaurants, parking, ATMs, pharmacies, supermarkets,
-          gas stations, hotels, shops, and other everyday places around your current area.
+          Search for cafes, restaurants, fast food, ATMs, parking, supermarkets,
+          mini markets, pharmacies, gas stations, gyms, bakeries, pastry shops,
+          cinemas, doctors, salons, nail studios, optical stores, pet shops,
+          clothing stores, flower shops, butcher shops, and other everyday places
+          around your current area.
         </p>
 
         <p class="hero-copy">
@@ -768,8 +778,9 @@
 
               <p class="section-copy">
                 The tool is designed for quick everyday decisions: finding a coffee stop,
-                a place to eat, a parking option, an ATM, a pharmacy, a supermarket,
-                a gas station, or another useful nearby place.
+                a place to eat, a parking option, an ATM, a supermarket, a mini market,
+                a pharmacy, a gas station, a gym, a bakery, a cinema, a doctor,
+                a salon, a shop, or another useful nearby place.
               </p>
 
               <div class="tool-note">
@@ -818,74 +829,128 @@
                 <div class="category-grid">
                   <button class="category-button" type="button" data-query="cafe">
                     <span class="category-icon">☕️</span>
-                    <span class="category-name">Cafes</span>
-                    <span class="category-desc">Coffee nearby</span>
+                    <span class="category-name">Καφέ</span>
+                    <span class="category-desc">Nearby coffee</span>
                   </button>
 
                   <button class="category-button" type="button" data-query="restaurant">
                     <span class="category-icon">🍽️</span>
-                    <span class="category-name">Restaurants</span>
-                    <span class="category-desc">Food places</span>
+                    <span class="category-name">Εστιατόρια</span>
+                    <span class="category-desc">Places to eat</span>
                   </button>
 
                   <button class="category-button" type="button" data-query="fast food">
                     <span class="category-icon">🍔</span>
-                    <span class="category-name">Fast Food</span>
+                    <span class="category-name">Fast food</span>
                     <span class="category-desc">Quick meals</span>
-                  </button>
-
-                  <button class="category-button" type="button" data-query="bakery">
-                    <span class="category-icon">🥐</span>
-                    <span class="category-name">Bakeries</span>
-                    <span class="category-desc">Bread and snacks</span>
-                  </button>
-
-                  <button class="category-button" type="button" data-query="pharmacy">
-                    <span class="category-icon">💊</span>
-                    <span class="category-name">Pharmacies</span>
-                    <span class="category-desc">Health essentials</span>
-                  </button>
-
-                  <button class="category-button" type="button" data-query="supermarket">
-                    <span class="category-icon">🛒</span>
-                    <span class="category-name">Supermarkets</span>
-                    <span class="category-desc">Groceries</span>
                   </button>
 
                   <button class="category-button" type="button" data-query="ATM">
                     <span class="category-icon">🏧</span>
-                    <span class="category-name">ATMs</span>
+                    <span class="category-name">ATM</span>
                     <span class="category-desc">Cash machines</span>
                   </button>
 
                   <button class="category-button" type="button" data-query="parking">
                     <span class="category-icon">🅿️</span>
-                    <span class="category-name">Parking</span>
+                    <span class="category-name">Πάρκινγκ</span>
                     <span class="category-desc">Parking nearby</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="supermarket">
+                    <span class="category-icon">🛒</span>
+                    <span class="category-name">Σούπερ μάρκετ</span>
+                    <span class="category-desc">Groceries</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="mini market">
+                    <span class="category-icon">🏪</span>
+                    <span class="category-name">Μίνι μάρκετ</span>
+                    <span class="category-desc">Small stores</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="pharmacy">
+                    <span class="category-icon">💊</span>
+                    <span class="category-name">Φαρμακεία</span>
+                    <span class="category-desc">Health essentials</span>
                   </button>
 
                   <button class="category-button" type="button" data-query="gas station">
                     <span class="category-icon">⛽️</span>
-                    <span class="category-name">Gas Stations</span>
+                    <span class="category-name">Βενζινάδικα</span>
                     <span class="category-desc">Fuel nearby</span>
                   </button>
 
-                  <button class="category-button" type="button" data-query="hotel">
-                    <span class="category-icon">🏨</span>
-                    <span class="category-name">Hotels</span>
-                    <span class="category-desc">Places to stay</span>
+                  <button class="category-button" type="button" data-query="gym">
+                    <span class="category-icon">💪</span>
+                    <span class="category-name">Γυμναστήρια</span>
+                    <span class="category-desc">Fitness places</span>
                   </button>
 
-                  <button class="category-button" type="button" data-query="bar">
-                    <span class="category-icon">🍸</span>
-                    <span class="category-name">Bars</span>
-                    <span class="category-desc">Drinks nearby</span>
+                  <button class="category-button" type="button" data-query="bakery">
+                    <span class="category-icon">🥐</span>
+                    <span class="category-name">Φούρνοι</span>
+                    <span class="category-desc">Bread and snacks</span>
                   </button>
 
-                  <button class="category-button" type="button" data-query="shop">
-                    <span class="category-icon">🛍️</span>
-                    <span class="category-name">Shops</span>
-                    <span class="category-desc">Useful stores</span>
+                  <button class="category-button" type="button" data-query="pastry shop">
+                    <span class="category-icon">🧁</span>
+                    <span class="category-name">Ζαχαροπλαστεία</span>
+                    <span class="category-desc">Sweets nearby</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="cinema">
+                    <span class="category-icon">🎬</span>
+                    <span class="category-name">Σινεμά</span>
+                    <span class="category-desc">Movie theaters</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="doctor">
+                    <span class="category-icon">⚕️</span>
+                    <span class="category-name">Γιατροί</span>
+                    <span class="category-desc">Medical offices</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="hair salon">
+                    <span class="category-icon">💇🏻‍♂️</span>
+                    <span class="category-name">Κομμωτήρια</span>
+                    <span class="category-desc">Hair salons</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="nail salon">
+                    <span class="category-icon">💅</span>
+                    <span class="category-name">Νύχια</span>
+                    <span class="category-desc">Nail studios</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="optician">
+                    <span class="category-icon">👓</span>
+                    <span class="category-name">Οπτικά</span>
+                    <span class="category-desc">Optical stores</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="pet shop">
+                    <span class="category-icon">🐾</span>
+                    <span class="category-name">Pet shop</span>
+                    <span class="category-desc">Pet supplies</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="clothing store">
+                    <span class="category-icon">👕</span>
+                    <span class="category-name">Ρούχα</span>
+                    <span class="category-desc">Clothing stores</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="flower shop">
+                    <span class="category-icon">🌹</span>
+                    <span class="category-name">Ανθοπωλεία</span>
+                    <span class="category-desc">Flower shops</span>
+                  </button>
+
+                  <button class="category-button" type="button" data-query="butcher">
+                    <span class="category-icon">🥩</span>
+                    <span class="category-name">Κρεοπωλεία</span>
+                    <span class="category-desc">Butcher shops</span>
                   </button>
                 </div>
               </div>
